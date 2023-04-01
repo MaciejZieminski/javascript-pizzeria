@@ -141,8 +141,7 @@
               price -= option.price;
             }
           }
-          const classOption = '.' + paramId + '-' + optionId;
-          const optionImage = thisProduct.element.imageWrapper.querySelector(classOption);
+          const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
           if (optionImage) {
             if (optionSelected) {
               optionImage.classList.add(classNames.menuProduct.imageVisible);
@@ -153,6 +152,14 @@
         }
       }
       thisProduct.priceElem.innerHTML = price;
+    }
+  }
+
+  class AmountWidget {
+    constructor(element) {
+      const thisWidget = this;
+      console.log('AmountWidget', thisWidget);
+      console.log()
     }
   }
 
