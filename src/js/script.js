@@ -83,7 +83,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
-      thisProduct.imageWrapper = thisProduct.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion() {
@@ -108,51 +108,48 @@
       thisProduct.form.addEventListener('submit', function (event) {
         event.preventDefault();
         thisProduct.processOrder();
-      })
+      });
 
       for (let input of thisProduct.formInputs) {
         input.addEventListener('change', function () {
           thisProduct.processOrder();
-        })
+        });
       }
       thisProduct.cartButton.addEventListener('click', function(event) {
         event.preventDefault();
         thisProduct.processOrder();
-      })
+      });
     }
 
     processOrder () {
       const thisProduct = this;
       const formData = utils.serializeFormToObject(thisProduct.form);
       console.log('formData', formData);
-      //set price to default price
       let price = thisProduct.data.price;
-      //for every category (param)
       for (let paramId in thisProduct.data.params) {
-        //determine param value e.g. paramId = 'toppings'
         const param = thisProduct.data.params[paramId];
         console.log(paramId, param);
         for (let optionId in param.options) {
           const option = param.options[optionId];
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
           if (optionSelected) {
-          if (!option.default) {
-            price += option.price;
-          }
-        } else {
-          if (option.default) {
-            price -= option.price;
-          }
-        }
-        const classOption = '.' + paramId + '-' + optionId;
-        const optionImage = thisProduct.dom.imageWrapper.querySelector(classOption);
-        if (optionImage) {
-          if (optionSelected) {
-            optionImage.classList.add(classNames.menuProduct.imageVisible);
+            if (!option.default) {
+              price += option.price;
+            }
           } else {
-            optionImage.classList.remove(classNames.menuProduct.imageVisible);
+            if (option.default) {
+              price -= option.price;
+            }
           }
-        }
+          const classOption = '.' + paramId + '-' + optionId;
+          const optionImage = thisProduct.element.imageWrapper.querySelector(classOption);
+          if (optionImage) {
+            if (optionSelected) {
+              optionImage.classList.add(classNames.menuProduct.imageVisible);
+            } else {
+              optionImage.classList.remove(classNames.menuProduct.imageVisible);
+            }
+          }
         }
       }
       thisProduct.priceElem.innerHTML = price;
