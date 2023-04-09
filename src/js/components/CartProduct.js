@@ -4,13 +4,13 @@ import AmountWidget from './AmountWidget.js';
 class CartProduct {
   constructor(menuProduct, element) {
     const thisCartProduct = this;
-    /* thisCartProduct.id = menuProduct.id;
-      thisCartProduct.name = menuProduct.name;
-      thisCartProduct.amount = menuProduct.amount;
-      thisCartProduct.price = menuProduct.price;
-      thisCartProduct.priceSingle = menuProduct.priceSingle;
-      thisCartProduct.params = menuProduct.params; */
-    thisCartProduct.getElements();
+    thisCartProduct.id = menuProduct.id;
+    thisCartProduct.name = menuProduct.name;
+    thisCartProduct.amount = menuProduct.amount;
+    thisCartProduct.price = menuProduct.price;
+    thisCartProduct.priceSingle = menuProduct.priceSingle;
+    thisCartProduct.params = menuProduct.params;
+    thisCartProduct.getElements(element);
     thisCartProduct.initAmountWidget();
     thisCartProduct.initActions();
   }
